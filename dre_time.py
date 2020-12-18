@@ -37,7 +37,7 @@ class Stopwatch:
         end_time = time.perf_counter()
         print("End Time:  ", time.ctime())
         print(f'Elapsed seconds: {end_time - self._start_time:0.4f}'
-              + f'({(end_time - self._start_time) / 60:0.2f} minutes)')
+              + f' ({(end_time - self._start_time) / 60:0.2f} minutes)')
 
         # must reset
         self._start_time = None
