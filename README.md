@@ -1,2 +1,2 @@
 # dre-lib
-My common utility code for Python ML
+My common utility code for Python Machine Learning

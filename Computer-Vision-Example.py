@@ -1,4 +1,4 @@
-# THIS CODE IS A REFORMATTED VERSION OF CODE FROM THE "DEEPLEARNING.AI TENSORFLOW DEVELOPER" COURSE
+# THIS CODE IS A MODULARIZED AND UPDATED VERSION OF CODE FROM THE "DEEPLEARNING.AI TENSORFLOW DEVELOPER" COURSE
 # SOURCE:
 # https://github.com/lmoroney/dlaicourse/blob/master/Course%201%20-%20Part%204%20-%20Lesson%202%20-%20Notebook.ipynb
 
@@ -9,8 +9,8 @@ from tensorflow.keras import layers
 import numpy as np
 import matplotlib.pyplot as plt
 
-from dre_time import Stopwatch
-from dre_chartz import show_history_chart
+from dre_lib.dre_time import Stopwatch
+import dre_lib.dre_chartz as chartz
 
 
 class MyCallback(keras.callbacks.Callback):
@@ -106,8 +106,8 @@ def main():
     print(test_labels[0])
     print(max(classifications[0]))
 
-    show_history_chart(history, "accuracy", save_fig_enabled=hp_save_fig_enabled)
-    show_history_chart(history, "loss", save_fig_enabled=hp_save_fig_enabled)
+    chartz.show_history_chart(history, "accuracy", save_fig_enabled=hp_save_fig_enabled)
+    chartz.show_history_chart(history, "loss", save_fig_enabled=hp_save_fig_enabled)
 
 
 if __name__ == '__main__':
