@@ -10,7 +10,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 from dre_lib.dre_time import Stopwatch
-import dre_lib.dre_chartz as chartz
+import dre_lib.dre_charts as dc
 
 
 class MyCallback(keras.callbacks.Callback):
@@ -106,8 +106,8 @@ def main():
     print(test_labels[0])
     print(max(classifications[0]))
 
-    chartz.show_history_chart(history, "accuracy", save_fig_enabled=hp_save_fig_enabled)
-    chartz.show_history_chart(history, "loss", save_fig_enabled=hp_save_fig_enabled)
+    dc.show_history_chart(history, "accuracy", save_fig_enabled=hp_save_fig_enabled)
+    dc.show_history_chart(history, "loss", save_fig_enabled=hp_save_fig_enabled)
 
 
 if __name__ == '__main__':
