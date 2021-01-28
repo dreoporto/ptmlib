@@ -1,5 +1,6 @@
-# excluding PyCharm settings
+# excluding IDE settings
 .idea/
+.vscode/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
