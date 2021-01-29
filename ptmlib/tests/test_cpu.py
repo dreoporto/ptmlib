@@ -1,5 +1,5 @@
 import unittest
-from dre_lib.dre_cpu import CpuCount
+from ptmlib.cpu import CpuCount
 
 
 class CpuCountTestCase(unittest.TestCase):

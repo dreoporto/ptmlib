@@ -4,14 +4,14 @@ with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 setuptools.setup(
-    name="dre-lib-dreoporto",
+    name="ptmlib",
     version="0.1.0",
     author="Andre Oporto",
-    author_email="andreoporto@gmail.com",
-    description="My common utility code for Python Machine Learning",
+    author_email="opor7ae@pendragonai.com",
+    description="Pendragon Tiny ML Library",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/dreoporto/dre-lib",
+    url="https://github.com/dreoporto/ptmlib",
     packages=setuptools.find_packages(),
     classifiers=[
         "Programming Language :: Python :: 3",

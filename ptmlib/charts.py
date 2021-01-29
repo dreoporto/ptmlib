@@ -1,6 +1,6 @@
 import matplotlib.pyplot as plt
 import pandas as pd
-from dre_lib.dre_time import get_time_string
+from ptmlib.time import get_time_string
 
 
 def format_plt(fig_size=(10, 6)):

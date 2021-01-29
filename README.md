@@ -1,18 +1,16 @@
-# dre-lib - Utilities for Machine Learning with Python
+# PTMLib - **P**endragon **T**iny **M**L **Lib**rary
 
 ## Summary
 
-*dre-lib* is a set of utilites that I have used while working with Machine Learning frameworks such as Scikit-Learn and TensorFlow.  The purpose is to eliminate code that I kept repeating in multiple Jupyter Notebooks.  
+**PTMLib** is a set of utilites that I have used while working with Machine Learning frameworks such as Scikit-Learn and TensorFlow.  The purpose is to eliminate code that I kept repeating in multiple Jupyter Notebooks.  
 
-- **dre_time.Stopwatch** - measure the time it takes to complete a long-running task, with an audio alert for task completion
-- **dre_cpu.CpuCount** - get info on CPUs available, with options to adjust/exclude based on a specific number/percentage.  Useful for setting `n_jobs` in Scikit-Learn tools that support multiple CPUs, such as `RandomForestClassifier`
-- **dre_charts** - render separate line charts for TensorFlow accuracy and loss,with corresponding validation data if available
-
-> Regarding the use of *dre* in the naming, I was more focused on building a *small* set of reusable tools and did not spend much if any time coming up with a name. The chances are good that any name I came up with would have been worse.
+- **ptmlib.time.Stopwatch** - measure the time it takes to complete a long-running task, with an audio alert for task completion
+- **ptmlib.cpu.CpuCount** - get info on CPUs available, with options to adjust/exclude based on a specific number/percentage.  Useful for setting `n_jobs` in Scikit-Learn tools that support multiple CPUs, such as `RandomForestClassifier`
+- **ptmlib.charts** - render separate line charts for TensorFlow accuracy and loss,with corresponding validation data if available
 
 ---
 
-## dre_time: Stopwatch
+## ptmlib.time: Stopwatch
 
 The `Stopwatch` class is used to measure the amount of time it takes to complete a long-running task.  
 

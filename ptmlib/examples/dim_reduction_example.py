@@ -9,8 +9,8 @@ from sklearn.ensemble import RandomForestClassifier
 
 from sklearn.metrics import accuracy_score
 
-from dre_lib.dre_time import Stopwatch
-from dre_lib.dre_cpu import CpuCount
+from ptmlib.time import Stopwatch
+from ptmlib.cpu import CpuCount
 
 
 def get_data():
