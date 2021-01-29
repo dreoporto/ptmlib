@@ -1,4 +1,4 @@
-# PTMLib - **P**endragon **T**iny **M**L **Lib**rary
+# PTMLib - Pendragon Tiny ML Library
 
 ## Summary
 
@@ -8,7 +8,7 @@
 - **ptmlib.cpu.CpuCount** - get info on CPUs available, with options to adjust/exclude based on a specific number/percentage.  Useful for setting `n_jobs` in Scikit-Learn tools that support multiple CPUs, such as `RandomForestClassifier`
 - **ptmlib.charts** - render separate line charts for TensorFlow accuracy and loss,with corresponding validation data if available
 
----
+*This code is brought to you by [Pendragon AI](https://www.pendragonai.com)*
 
 ## ptmlib.time: Stopwatch
 
