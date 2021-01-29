@@ -18,7 +18,7 @@ When `stop()` is called, an audio prompt will alert you that the task has comple
 
 ### Example:
 
-```
+```python
 stopwatch = Stopwatch()
 
 ...
@@ -65,7 +65,7 @@ Knowing your CPU count, you can programmatically set the number of processors us
 In many cases (ex: a developer desktop), you will not want to use *all* your available processors for a task.  The `adjusted_count()` and `adjusted_count_by_percent()` methods allow you to specify the number and percentage of processors to exclude, with default exclusion values of `1` and `0.25`, respectively.  The *defaults* are reflected in the `print_stats()` output in the example below.
 
 ### Example:
-```
+```python
 cpu_count = CpuCount()
 cpu_count.print_stats()
 
