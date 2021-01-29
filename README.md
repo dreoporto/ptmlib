@@ -2,19 +2,19 @@
 
 ## Summary
 
-**PTMLib** is a set of utilities that I have used while working with Machine Learning frameworks such as Scikit-Learn and TensorFlow.  The purpose is to eliminate code that I kept repeating in multiple projects.  
+**PTMLib** is a set of utilities that I have used with Machine Learning frameworks such as Scikit-Learn and TensorFlow.  The purpose is to eliminate code that I kept repeating in multiple projects.  
 
 - **ptmlib.time.Stopwatch** - measure the time it takes to complete a long-running task, with an audio alert for task completion
 - **ptmlib.cpu.CpuCount** - get info on CPUs available, with options to adjust/exclude based on a specific number/percentage.  Useful for setting `n_jobs` in Scikit-Learn tools that support multiple CPUs, such as `RandomForestClassifier`
 - **ptmlib.charts** - render separate line charts for TensorFlow accuracy and loss, with corresponding validation data if available
 
-*This code is brought to you by [Pendragon AI](https://www.pendragonai.com)*
+*This code is brought to you by yours truly at [Pendragon AI](https://www.pendragonai.com)*
 
 ## ptmlib.time.Stopwatch
 
-The `Stopwatch` class is used to measure the amount of time it takes to complete a long-running task. This can be helpful when evaluating different machine learning models.
+The `Stopwatch` class lets you measure the amount of time it takes to complete a long-running task. This can be useful for evaluating different machine learning models.
 
-When `stop()` is called, an audio prompt will alert you that the task has completed. This helps when you are time constrained and multi-tasking while your code is executing, for example when taking the [TensorFlow Developer Certificate](https://www.tensorflow.org/certificate) exam.
+When `stop()` is called, an audio prompt will alert you that the task has completed. This helps when you are time constrained and multi-tasking while your code is executing, for example taking the [TensorFlow Developer Certificate](https://www.tensorflow.org/certificate) exam.
 
 ### Example:
 
@@ -60,7 +60,7 @@ Stopwatch has been tested on Windows (VS Code, PyCharm IDEs and Jupyter Notebook
 
 The CpuCount class provides information on the number of CPUs available on the host machine.  The exact number of *logical* CPUs is returned by the `total_count()` method.
 
-Knowing your CPU count, you can programmatically set the number of processors used in Scikit-Learn tools that support the `n_jobs` parameter, such as `RandomForestClassifier`.
+Knowing your CPU count, you can programmatically set the number of processors used in Scikit-Learn tools that support the `n_jobs` parameter, such as `RandomForestClassifier` and `model_selection.cross_validate`.
 
 In many cases (ex: a developer desktop), you will not want to use *all* your available processors for a task.  The `adjusted_count()` and `adjusted_count_by_percent()` methods allow you to specify the number and percentage of processors to exclude, with default exclusion values of `1` and `0.25`, respectively.  The *defaults* are reflected in the `print_stats()` output in the example below.
 
@@ -88,4 +88,4 @@ Adjusted Count:       15
   By 50 Percent:       8
 ```
 
-While certain Scikit-Learn classifiers/tools benefit greatly from concurrent multi-CPU processing,  TensorFlow deep learning acceleration [requires a supported GPU](https://www.tensorflow.org/install/gpu).
+While certain Scikit-Learn classifiers/tools benefit greatly from concurrent multi-CPU processing,  TensorFlow deep learning acceleration [requires a supported GPU](https://www.tensorflow.org/install/gpu) or [TPU](https://cloud.google.com/tpu).  As far as CPUs are concerned, TensorFlow handles this automatically; there is no benefit to using CpuCount here.
