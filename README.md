@@ -10,11 +10,11 @@
 
 *This code is brought to you by [Pendragon AI](https://www.pendragonai.com)*
 
-## ptmlib.time: Stopwatch
+## ptmlib.time.Stopwatch
 
 The `Stopwatch` class is used to measure the amount of time it takes to complete a long-running task. This can be helpful when evaluating different machine learning models.
 
-When `stop` is called, an audio prompt will alert you that the task has completed. This helps when you are time constrained and multi-tasking while your code is executing, for example when taking the [TensorFlow Developer Certificate](https://www.tensorflow.org/certificate) exam.
+When `stop()` is called, an audio prompt will alert you that the task has completed. This helps when you are time constrained and multi-tasking while your code is executing, for example when taking the [TensorFlow Developer Certificate](https://www.tensorflow.org/certificate) exam.
 
 ### Example:
 
@@ -50,8 +50,42 @@ End Time:   Thu Jan 28 16:58:03 2021
 Elapsed seconds: 30.8191 (0.51 minutes)
 ```
 
-Start Time and End Time/Elapsed Seconds/Minutes are output when the `start` and `stop` methods are called, respectively.  All other information in the above example output will be generated based on your ML framework.  
+Start Time and End Time/Elapsed Seconds/Minutes are output when the `start()` and `stop()` methods are called, respectively.  All other information in the above example output will be generated based on your ML framework.  
 
 Stopwatch has been tested using Scikit-Learn and TensorFlow, and can be used for any long-running Python code for which you want to measure execution time performance, or be notified of task completion.
 
 Stopwatch has been tested on Windows (VS Code, PyCharm IDEs and Jupyter Notebook) and Google Colab environments.
+
+## ptmlib.cpu.CpuCount
+
+The CpuCount class provides information on the number of CPUs available on the host machine.  The exact number of *logical* CPUs is returned by the `total_count()` method.
+
+Knowing your CPU count, you can programmatically set the number of processors used in Scikit-Learn tools that support the `n_jobs` parameter, such as `RandomForestClassifier`.
+
+In many cases (ex: a developer desktop), you will not want to use *all* your available processors for a task.  The `adjusted_count()` and `adjusted_count_by_percent()` methods allow you to specify the number and percentage of processors to exclude, with default exclusion values of `1` and `0.25`, respectively.  The *defaults* are reflected in the `print_stats()` output in the example below.
+
+### Example:
+```
+cpu_count = CpuCount()
+cpu_count.print_stats()
+
+max_cpu = cpu_count.adjusted_count(excluded_processors=2)
+
+...
+
+rnd_clf = RandomForestClassifier(
+    n_estimators=hp_estimators, 
+    random_state=hp_random_state, 
+    n_jobs=max_cpu
+)
+```
+
+### Output:
+```
+Total CPU Count:      16
+Adjusted Count:       15
+  By Percent:         12
+  By 50 Percent:       8
+```
+
+While certain Scikit-Learn classifiers/tools benefit greatly from concurrent multi-CPU processing,  TensorFlow deep learning acceleration [requires a supported GPU](https://www.tensorflow.org/install/gpu).
