@@ -2,19 +2,19 @@
 
 ## Summary
 
-**PTMLib** is a set of utilites that I have used while working with Machine Learning frameworks such as Scikit-Learn and TensorFlow.  The purpose is to eliminate code that I kept repeating in multiple Jupyter Notebooks.  
+**PTMLib** is a set of utilities that I have used while working with Machine Learning frameworks such as Scikit-Learn and TensorFlow.  The purpose is to eliminate code that I kept repeating in multiple projects.  
 
 - **ptmlib.time.Stopwatch** - measure the time it takes to complete a long-running task, with an audio alert for task completion
 - **ptmlib.cpu.CpuCount** - get info on CPUs available, with options to adjust/exclude based on a specific number/percentage.  Useful for setting `n_jobs` in Scikit-Learn tools that support multiple CPUs, such as `RandomForestClassifier`
-- **ptmlib.charts** - render separate line charts for TensorFlow accuracy and loss,with corresponding validation data if available
+- **ptmlib.charts** - render separate line charts for TensorFlow accuracy and loss, with corresponding validation data if available
 
 *This code is brought to you by [Pendragon AI](https://www.pendragonai.com)*
 
 ## ptmlib.time: Stopwatch
 
-The `Stopwatch` class is used to measure the amount of time it takes to complete a long-running task.  
+The `Stopwatch` class is used to measure the amount of time it takes to complete a long-running task. This can be helpful when evaluating different machine learning models.
 
-When `stop` is called, an audio prompt will alert you that the task has completed. This is can be useful when you are multi-tasking while your code is executing, which is especially helpful if you are time constrained, for example when taking the [TensorFlow Developer Certificate](https://www.tensorflow.org/certificate) exam.
+When `stop` is called, an audio prompt will alert you that the task has completed. This helps when you are time constrained and multi-tasking while your code is executing, for example when taking the [TensorFlow Developer Certificate](https://www.tensorflow.org/certificate) exam.
 
 ### Example:
 
@@ -50,8 +50,8 @@ End Time:   Thu Jan 28 16:58:03 2021
 Elapsed seconds: 30.8191 (0.51 minutes)
 ```
 
-Start Time, End Time and Elapsed Seconds/Minutes are all output when `start` and `stop` methods are called.  All other information in the above example output would be generated based on your ML framework.  
+Start Time and End Time/Elapsed Seconds/Minutes are output when the `start` and `stop` methods are called, respectively.  All other information in the above example output will be generated based on your ML framework.  
 
-Stopwatch has been tested using Scikit-Learn and TensorFlow, but can be used for any long-running Python code for which you want to measure performance or be notified of task completion.
+Stopwatch has been tested using Scikit-Learn and TensorFlow, and can be used for any long-running Python code for which you want to measure execution time performance, or be notified of task completion.
 
-Stopwatch has been tested on Windows (including IDEs and Jupyter Notebook) and Google Colab environments.
+Stopwatch has been tested on Windows (VS Code, PyCharm IDEs and Jupyter Notebook) and Google Colab environments.
