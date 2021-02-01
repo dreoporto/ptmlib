@@ -18,15 +18,26 @@ except ImportError:
 
 
 def get_time_string():
+    """
+    Returns the current time as string in YYmmdd-HHMMSS format
+    """
     return time.strftime("%Y%m%d-%H%M%S")
 
 
 class AlertSounds:
+    """
+    Audio files available in the ptmlib/media directory
+    """
     BEE5: str = 'media/bee5.mp3'
     DORE: str = 'media/dore.mp3'
 
 
 class Stopwatch:
+
+    """
+    The Stopwatch class lets you measure the amount of time it takes to complete a long-running task.
+    This can be useful for evaluating different machine learning models.
+    """
 
     default_colab_sound_url: str = 'https://upload.wikimedia.org/wikipedia/commons/3/3b/Bee5th.ogg'
 
@@ -34,13 +45,29 @@ class Stopwatch:
         self._start_time = None
 
     def start(self) -> None:
-        # display actual start time: useful for long-running tasks
+        """
+        Start the timer;
+        Prints actual start time which is useful for long-running tasks
+
+        :return: None
+        """
+
         print("Start Time:", time.ctime())
 
         self._start_time = time.perf_counter()
 
     def stop(self, silent: bool = False, sound_path: str = AlertSounds.BEE5,
              colab_sound_url: str = default_colab_sound_url) -> None:
+
+        """
+        Stop the timer and print elapsed time info;
+        Plays an audio prompt to alert that task has completed
+
+        :param silent: disable audio alert
+        :param sound_path: OPTIONS: AlertSounds value, absolute file path to audio file
+        :param colab_sound_url: absolute URL to audio file to be played if in Google Colab environment
+        :return: None
+        """
 
         if self._start_time is None:
             raise ValueError('start time must be set by calling start() before stop()')
