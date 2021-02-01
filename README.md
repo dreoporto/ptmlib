@@ -65,6 +65,7 @@ Knowing your CPU count, you can programmatically set the number of processors us
 In many cases (ex: a developer desktop), you will not want to use *all* your available processors for a task.  The `adjusted_count()` and `adjusted_count_by_percent()` methods allow you to specify the number and percentage of processors to exclude, with default exclusion values of `1` and `0.25`, respectively.  The *defaults* are reflected in the `print_stats()` output in the example below.
 
 ### Example:
+
 ```python
 cpu_count = CpuCount()
 cpu_count.print_stats()
@@ -89,3 +90,38 @@ Adjusted Count:       15
 ```
 
 While certain Scikit-Learn classifiers/tools benefit greatly from concurrent multi-CPU processing,  TensorFlow deep learning acceleration [requires a supported GPU](https://www.tensorflow.org/install/gpu) or [TPU](https://cloud.google.com/tpu).  As far as CPUs are concerned, TensorFlow handles this automatically; there is no benefit to using CpuCount here.
+
+## ptmlib.charts.show_history_chart()
+
+The `show_history_chart()` function renders separate line charts for TensorFlow training accuracy and loss, with corresponding validation data if available.  The `save_fig_enabled` parameter can be used to save a copy of the chart with a timestamped filename.  Charts options such as major and minor ticks are formatted to maximize readability for analysis during model development and troubleshooting.
+
+### Example:
+
+```python
+import ptmlib.charts as pch
+
+...
+
+history = model.fit(
+    training_images,
+    training_labels,
+    validation_split=hp_validation_split,
+    epochs=hp_epochs,
+    callbacks=[early_callback]
+)
+
+...
+
+pch.show_history_chart(history, "accuracy", save_fig_enabled=True)
+pch.show_history_chart(history, "loss", save_fig_enabled=True)
+```
+
+### Output:
+
+TensorFlow History Accuracy Chart: *accuracy-20210201-111540.png*
+
+![TF History Accuracy Chart](ptmlib/examples/accuracy-20210201-111540.png)
+
+TensorFlow History Loss Chart: *loss-20210201-111545.png*
+
+![TF History Accuracy Chart](ptmlib/examples/loss-20210201-111545.png)
