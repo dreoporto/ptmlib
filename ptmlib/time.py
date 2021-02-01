@@ -1,8 +1,13 @@
 import time
+import os
 
-# CURRENTLY ONLY SUPPORT WINDOWS AND COLAB
 try:
-    import winsound
+    from playsound import playsound
+except ImportError:
+    playsound = None
+
+try:
+    import winsound  # requires windows; only used if playsound/colab unavailable
 except ImportError:
     winsound = None
 
@@ -17,7 +22,10 @@ def get_time_string():
 
 
 class Stopwatch:
-    _default_sound = 'https://upload.wikimedia.org/wikipedia/commons/0/05/Beep-09.ogg'
+
+    sounds_bee5 = 'media/bee5.mp3'
+    sounds_dore = 'media/dore.mp3'
+    default_colab_sound_url = 'https://upload.wikimedia.org/wikipedia/commons/0/05/Beep-09.ogg'
 
     def __init__(self):
         self._start_time = None
@@ -28,7 +36,7 @@ class Stopwatch:
 
         self._start_time = time.perf_counter()
 
-    def stop(self, silent=False, sound_path=_default_sound):
+    def stop(self, silent=False, sound_path=sounds_bee5, colab_sound_url=default_colab_sound_url):
 
         if self._start_time is None:
             raise ValueError('start time must be set by calling start() before stop()')
@@ -43,8 +51,29 @@ class Stopwatch:
         self._start_time = None
 
         if not silent:
-            if winsound is not None:
-                winsound.Beep(400, 1000)
-            if output is not None:
-                # noinspection PyUnresolvedReferences
-                output.eval_js(f'new Audio(\"{sound_path}\").play()')
+            self._alert_finished(sound_path, colab_sound_url)
+
+    def _alert_finished(self, sound_path, colab_sound_url):
+
+        dirname = os.path.dirname(__file__)
+
+        # determine audio file to use
+        if os.path.exists(sound_path):
+            pass  # no changes needed
+        elif os.path.exists(os.path.join(dirname, sound_path)):
+            sound_path = os.path.join(dirname, sound_path)
+        elif os.path.exists(os.path.join(dirname, self.sounds_bee5)):
+            # switch back to default
+            sound_path = os.path.join(dirname, self.sounds_bee5)
+        else:
+            sound_path = None
+
+        if playsound is not None and sound_path is not None:
+            # PLAYSOUND ON LOCAL
+            playsound(sound_path)
+        elif output is not None:
+            # RUNNING IN COLAB
+            # noinspection PyUnresolvedReferences
+            output.eval_js(f'new Audio(\"{colab_sound_url}\").play()')
+        elif winsound is not None:
+            winsound.Beep(400, 1000)
