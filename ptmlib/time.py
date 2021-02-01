@@ -55,7 +55,11 @@ class Stopwatch:
         self._start_time = None
 
         if not silent:
-            self._alert_finished(sound_path, colab_sound_url)
+            # DO NOT allow audio error to impact processing
+            try:
+                self._alert_finished(sound_path, colab_sound_url)
+            except Exception as ex:
+                print('STOPWATCH _alert_finished ERROR:', ex)
 
     @staticmethod
     def _alert_finished(sound_path: str, colab_sound_url: str) -> None:
