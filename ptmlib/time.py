@@ -64,7 +64,7 @@ class Stopwatch:
         Plays an audio prompt to alert that task has completed
 
         :param silent: disable audio alert
-        :param sound_path: OPTIONS: AlertSounds value, absolute file path to audio file
+        :param sound_path: OPTIONS: ptmlib.time.AlertSounds value, or absolute file path to audio file
         :param colab_sound_url: absolute URL to audio file to be played if in Google Colab environment
         :return: None
         """
