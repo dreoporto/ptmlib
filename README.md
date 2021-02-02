@@ -54,7 +54,14 @@ Start Time and End Time/Elapsed Seconds/Minutes are output when the `start()` an
 
 Stopwatch has been tested using Scikit-Learn and TensorFlow, and can be used for any long-running Python code for which you want to measure execution time performance, or be notified of task completion.
 
-Stopwatch has been tested with VS Code, PyCharm, Jupyter Notebook and Google Colab.
+Stopwatch has been tested with VS Code, PyCharm, Jupyter Notebook and [Google Colab](https://colab.research.google.com).
+
+A default sound is provided for Google Colab, or you can specify your own:
+
+```python
+alert_audio_url: str = 'https://upload.wikimedia.org/wikipedia/commons/0/09/Do-Re-Tone.ogg'
+stopwatch.stop(colab_sound_url=alert_audio_url)
+```
 
 ## ptmlib.cpu.CpuCount
 

@@ -91,7 +91,12 @@ class Stopwatch:
     @staticmethod
     def _alert_finished(sound_path: str, colab_sound_url: str) -> None:
 
-        dirname = os.path.dirname(__file__)
+        dirname: str = ''
+
+        try:
+            dirname = os.path.dirname(__file__)
+        except NameError:
+            pass  # leave dirname as empty string; __file__ is not defined in colab
 
         # determine audio file to use
         if os.path.exists(sound_path):
