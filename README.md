@@ -8,7 +8,7 @@
 - **ptmlib.cpu.CpuCount** - get info on CPUs available, with options to adjust/exclude based on a specific number/percentage.  Useful for setting `n_jobs` in Scikit-Learn tools that support multiple CPUs, such as `RandomForestClassifier`
 - **ptmlib.charts** - render separate line charts for TensorFlow accuracy and loss, with corresponding validation data if available
 
-*This code is brought to you by yours truly at [Pendragon AI](https://www.pendragonai.com)*
+*This code and documentation were created by Andre Oporto at [Pendragon AI](https://www.pendragonai.com)*
 
 ## ptmlib.time.Stopwatch
 
@@ -132,3 +132,21 @@ TensorFlow History Accuracy Chart: *accuracy-20210201-111540.png*
 TensorFlow History Loss Chart: *loss-20210201-111545.png*
 
 ![TF History Accuracy Chart](ptmlib/examples/loss-20210201-111545.png)
+
+## Installation
+
+To install `ptmlib` in a virtualenv or conda environment:
+
+```
+pip install git+https://github.com/dreoporto/ptmlib.git
+```
+
+To install the `ptmlib` source code on your local machine:
+```
+git clone https://github.com/dreoporto/ptmlib.git
+cd ptmlib
+
+conda create -n ptmlib-dev python=3.8
+conda activate ptmlib-dev
+pip install -r requirements.txt
+```
