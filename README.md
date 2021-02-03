@@ -138,7 +138,7 @@ TensorFlow History Loss Chart: *loss-20210201-111545.png*
 To install `ptmlib` in a virtualenv or conda environment:
 
 ```
-pip install git+https://github.com/dreoporto/ptmlib.git
+pip install --no-index -f https://github.com/dreoporto/ptmlib/releases ptmlib
 ```
 
 To install the `ptmlib` source code on your local machine:
