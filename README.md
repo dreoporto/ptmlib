@@ -1,4 +1,4 @@
-# PTMLib - Pendragon Tiny ML Library
+# PTMLib - Pendragon Tools for Machine Learning
 
 ## Summary
 
