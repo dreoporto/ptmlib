@@ -12,7 +12,7 @@ def format_plt(fig_size: (int, int) = (10, 6)) -> None:
 
 
 def show_history_chart(history: Any, search_string: str, fig_size: (int, int) = (10, 6),
-                       save_fig_enabled: bool = False) -> None:
+                       save_fig_enabled: bool = False, file_name_suffix: str = None) -> None:
 
     """
     Renders line charts for TensorFlow training history (ex: accuracy, loss),
@@ -22,6 +22,7 @@ def show_history_chart(history: Any, search_string: str, fig_size: (int, int) = 
     :param search_string: string to filter history; ex: accuracy, loss
     :param fig_size: chart size tuple; default is (10, 6)
     :param save_fig_enabled: save chart image with search_string-YYYYmmdd-HHMMSS.png file format
+    :param file_name_suffix: suffix for file name; default is a timestamp
     :return: None
     """
 
@@ -33,6 +34,12 @@ def show_history_chart(history: Any, search_string: str, fig_size: (int, int) = 
     plt.minorticks_on()
 
     if save_fig_enabled:
-        plt.savefig(f"{search_string}-{get_time_string()}.png")
+        if file_name_suffix is None:
+            image_file_name = f'{search_string}-{get_time_string()}.png'
+        else:
+            image_file_name = f'{search_string}-{file_name_suffix}.png'
+
+        plt.savefig(image_file_name)
+        print('Saved image:', image_file_name)
 
     plt.show()
