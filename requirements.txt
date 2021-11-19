@@ -6,3 +6,4 @@ pandas==1.2.1
 scikit-learn==0.24.1
 playsound==1.2.2
 tensorflow==2.5.1
+ipython~=7.29.0
