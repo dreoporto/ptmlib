@@ -24,6 +24,7 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
     history = None
 
     if os.path.exists(f'{model_file_name}.h5'):
+        print(f'Loading existing model file: {model_file_name}.h5')
         model = load_model_function(model_file_name)
         if images_enabled:
             _show_saved_images(metrics, model_file_name)
@@ -32,6 +33,7 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
         stopwatch.start()
         history = fit_model_function(model, x, y, validation_data, epochs)
         stopwatch.stop()
+        print(f'Saving new model file: {model_file_name}.h5')
         model.save(f'{model_file_name}.h5')
         if images_enabled:
             _show_new_images(history, model_file_name, metrics)
@@ -40,7 +42,6 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
 
 
 def _show_new_images(history: Any, model_file_name: str, metrics: List[str]):
-    # TODO AEO add error handling to show_history_chart in case 'accuracy' is not available
     if metrics is not None:
         for metric in metrics:
             pch.show_history_chart(history, metric, save_fig_enabled=True, file_name_suffix=model_file_name)

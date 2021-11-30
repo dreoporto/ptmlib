@@ -28,6 +28,10 @@ def show_history_chart(history: Any, search_string: str, fig_size: (int, int) = 
 
     filtered_hist = {k: v for (k, v) in history.history.items() if search_string in k}
 
+    if len(filtered_hist.keys()) == 0:
+        print('No data to plot for search_string:', search_string)
+        return
+
     pd.DataFrame(filtered_hist).plot(figsize=fig_size)
     plt.grid(True, which='major')
     plt.grid(True, which='minor', alpha=0.3, linestyle='--')
