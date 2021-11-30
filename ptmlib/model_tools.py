@@ -13,14 +13,12 @@ def default_load_model_function(model_file_name: str):
     return keras.models.load_model(f'{model_file_name}.h5')
 
 
-# TODO AEO - change train_set to x, y; change test_set to validation_data
-
-def _default_fit_model_function(model: Any, train_set: Any, test_set: Any = None, epochs: int = 1):
-    return model.fit(train_set, validation_data=test_set, epochs=epochs)
+def _default_fit_model_function(model: Any, x: Any, y: Any = None, validation_data: Any = None, epochs: int = 1):
+    return model.fit(x, y, validation_data=validation_data, epochs=epochs)
 
 
-def load_or_fit_model(model: Any, model_file_name: str, train_set: Any, test_set: Any = None, epochs: int = 1,
-                      metrics: List[str] = None, images_enabled=True,
+def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, validation_data: Any = None,
+                      epochs: int = 1, metrics: List[str] = None, images_enabled=True,
                       load_model_function=default_load_model_function,
                       fit_model_function=_default_fit_model_function):
     history = None
@@ -32,7 +30,7 @@ def load_or_fit_model(model: Any, model_file_name: str, train_set: Any, test_set
     else:
         stopwatch = Stopwatch()
         stopwatch.start()
-        history = fit_model_function(model, train_set, test_set, epochs)
+        history = fit_model_function(model, x, y, validation_data, epochs)
         stopwatch.stop()
         model.save(f'{model_file_name}.h5')
         if images_enabled:

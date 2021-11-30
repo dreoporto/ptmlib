@@ -2,15 +2,12 @@
 # SOURCE:
 # https://github.com/lmoroney/dlaicourse/blob/master/Course%201%20-%20Part%204%20-%20Lesson%202%20-%20Notebook.ipynb
 
+import matplotlib.pyplot as plt
+import numpy as np
 import tensorflow as tf
 from tensorflow import keras
 from tensorflow.keras import layers
 
-import numpy as np
-import matplotlib.pyplot as plt
-
-from ptmlib.time import Stopwatch
-import ptmlib.charts as pch
 import ptmlib.model_tools as modt
 
 
@@ -20,7 +17,7 @@ class MyCallback(keras.callbacks.Callback):
         super().__init__()
         self.target = target
 
-    def on_epoch_end(self, epoch, logs=None):
+    def on_epoch_end(self, _, logs=None):
 
         if logs is None:
             logs = {}
@@ -72,10 +69,11 @@ def get_model() -> keras.models.Sequential:
 
 def main():
 
-    # HYPER PARAMS
+    # HYPER PARAMS, CONSTANTS, ETC
     hp_epochs = 50
     hp_target = 0.91
     hp_validation_split = 0.2
+    model_file_name = "computer_vision_1"
 
     print_diagnostics()
 
@@ -85,25 +83,12 @@ def main():
 
     early_callback = MyCallback(target=hp_target)
 
-    # TODO AEO clean up
-    # stopwatch.start()
-    #
-    # history = model.fit(
-    #     training_images,
-    #     training_labels,
-    #     validation_split=hp_validation_split,
-    #     epochs=hp_epochs,
-    #     callbacks=[early_callback]
-    # )
-    #
-    # stopwatch.stop()
+    fit_model_function_with_callback = lambda my_model, x, y, validation_data, epochs: my_model.fit(
+        x, y, validation_data, epochs=epochs, callbacks=[early_callback], validation_split=hp_validation_split)
 
-    fit_model_function_with_callback = lambda my_model, train_set, test_set, epochs: my_model.fit(
-        training_images, training_labels, epochs=epochs, callbacks=[early_callback],
-        validation_split=hp_validation_split)
-
-    model, history = modt.load_or_fit_model(model, "computer_vision_1", train_set=None, epochs=hp_epochs,
-                                            fit_model_function=fit_model_function_with_callback, metrics=["accuracy"])
+    model, history = modt.load_or_fit_model(model, model_file_name, x=training_images, y=training_labels,
+                                            epochs=hp_epochs, fit_model_function=fit_model_function_with_callback,
+                                            metrics=["accuracy"])
 
     model.evaluate(test_images, test_labels)
 
@@ -111,10 +96,6 @@ def main():
     print(classifications[0])
     print(test_labels[0])
     print(max(classifications[0]))
-
-    # TODO AEO clean up
-    # pch.show_history_chart(history, "accuracy", save_fig_enabled=hp_save_fig_enabled)
-    # pch.show_history_chart(history, "loss", save_fig_enabled=hp_save_fig_enabled)
 
 
 if __name__ == '__main__':
