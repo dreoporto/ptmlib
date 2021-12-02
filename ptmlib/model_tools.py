@@ -18,7 +18,7 @@ def _default_fit_model_function(model: Any, x: Any, y: Any = None, validation_da
 
 
 def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, validation_data: Any = None,
-                      epochs: int = 1, metrics: List[str] = None, images_enabled=True,
+                      epochs: int = 1, metrics: List[str] = None, images_enabled=True, fig_size: (int, int) = (10, 6),
                       load_model_function=default_load_model_function,
                       fit_model_function=_default_fit_model_function):
     history = None
@@ -27,7 +27,7 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
         print(f'Loading existing model file: {model_file_name}.h5')
         model = load_model_function(model_file_name)
         if images_enabled:
-            _show_saved_images(metrics, model_file_name)
+            _show_saved_images(metrics, model_file_name, fig_size)
     else:
         stopwatch = Stopwatch()
         stopwatch.start()
@@ -48,17 +48,20 @@ def _show_new_images(history: Any, model_file_name: str, metrics: List[str]):
     pch.show_history_chart(history, "loss", save_fig_enabled=True, file_name_suffix=model_file_name)
 
 
-def _show_saved_images(metrics: List[str], model_file_name: str):
+def _show_saved_images(metrics: List[str], model_file_name: str, fig_size: (int, int) = (10, 6)):
     if metrics is not None:
         for metric in metrics:
             if os.path.exists(f'{metric}-{model_file_name}.png'):
-                _show_saved_image(f'{metric}-{model_file_name}.png')
+                _show_saved_image(f'{metric}-{model_file_name}.png', fig_size)
     if os.path.exists(f'loss-{model_file_name}.png'):
-        _show_saved_image(f'loss-{model_file_name}.png')
+        _show_saved_image(f'loss-{model_file_name}.png', fig_size)
 
 
-def _show_saved_image(filename: str):
+def _show_saved_image(filename: str, fig_size: (int, int) = (10, 6)):
     image_data = mpimg.imread(filename)
+    fig = plt.figure(figsize=fig_size)
+    ax = plt.Axes(fig, [0., 0., 1., 1.])
+    fig.add_axes(ax)
     plt.axis('off')
     plt.imshow(image_data)
     plt.show()
