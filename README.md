@@ -133,6 +133,8 @@ TensorFlow History Loss Chart: *loss-20210201-111545.png*
 
 ![TF History Accuracy Chart](ptmlib/examples/loss-20210201-111545.png)
 
+The default file name format for these images is *searchstring-timestamp.png*.  The `file_name_suffix` parameter lets you replace the timestamp with another value, for more predictable filenames to simplify reuse of images in your code.
+
 ## Installation
 
 To install `ptmlib` in a virtualenv or conda environment:
