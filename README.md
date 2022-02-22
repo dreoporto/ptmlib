@@ -138,7 +138,7 @@ The default file name format for these images is *searchstring-timestamp.png*.  
 
 ## ptmlib.model_tools.load_or_fit_model()
 
-The `ptmlib.model_tools.load_or_fit_model()` function makes it easy to train and save a model for later use, in cases where you may need to stop and restart work later in Jupyter or your IDE.  This can be very helpful when working through a long and detailed notebook where some models take significant time to train.  You can avoid repeatedly training models you are satisfied with and have completed, and still close and reopen your notebook as needed.
+The `ptmlib.model_tools.load_or_fit_model()` function makes it easy to train and save a model for later use, in cases where you may need to stop and restart work in Jupyter or your IDE.  This can be very helpful when working through a long and detailed notebook, where some models take significant time to train.  You can avoid repeatedly training models you are satisfied with and have completed, and still close and reopen your notebook as needed.
 
 ### Example Usage:
 
@@ -154,7 +154,8 @@ model_file_name = "computer_vision_1"
 ...
 
 fit_model_function_with_callback = lambda my_model, x, y, validation_data, epochs: my_model.fit(
-    x, y, validation_data, epochs=epochs, callbacks=[early_callback], validation_split=hp_validation_split)
+    x, y, validation_data, epochs=epochs, callbacks=[early_callback], 
+    validation_split=hp_validation_split)
 
 # if this has previously been executed, we will load the trained/saved model 
 model, history = modt.load_or_fit_model(model, model_file_name, x=training_images, y=training_labels,
