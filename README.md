@@ -2,13 +2,12 @@
 
 ## Summary
 
-**PTMLib** is a set of utilities that I have used with Machine Learning frameworks such as Scikit-Learn and TensorFlow.  The purpose is to eliminate code that I kept repeating in multiple projects.  
+**PTMLib** is a set of utilities for use with Machine Learning frameworks such as Scikit-Learn and TensorFlow.
 
 - **ptmlib.time.Stopwatch** - measure the time it takes to complete a long-running task, with an audio alert for task completion
 - **ptmlib.cpu.CpuCount** - get info on CPUs available, with options to adjust/exclude based on a specific number/percentage.  Useful for setting `n_jobs` in Scikit-Learn tools that support multiple CPUs, such as `RandomForestClassifier`
-- **ptmlib.charts** - render separate line charts for TensorFlow accuracy and loss, with corresponding validation data if available
-
-*This code and documentation were created by Andre Oporto at [Pendragon AI](https://www.pendragonai.com)*
+- **ptmlib.charts** - render separate line charts for TensorFlow metrics such as accuracy and loss, with corresponding validation data if available
+- **ptmlib.model_tools.load_or_fit_model()** - train, save, and reload Tensorflow models and metric charts automatically, making it easier to pick up where you left off
 
 ## ptmlib.time.Stopwatch
 
@@ -132,6 +131,44 @@ TensorFlow History Accuracy Chart: *accuracy-20210201-111540.png*
 TensorFlow History Loss Chart: *loss-20210201-111545.png*
 
 ![TF History Accuracy Chart](ptmlib/examples/loss-20210201-111545.png)
+
+The default file name format for these images is *searchstring-timestamp.png*.  The `file_name_suffix` parameter lets you replace the timestamp with another value, for more predictable filenames to simplify reuse of images in your code.
+
+## ptmlib.model_tools.load_or_fit_model()
+
+The `ptmlib.model_tools.load_or_fit_model()` function makes it easy to train and save a model for later use, in cases where you may need to stop and restart work in Jupyter or your IDE *after* model training has completed.  This can be very helpful when working through a long and detailed notebook with multiple example models, where some models take significant time to train.  You can avoid repeatedly training models you are satisfied with and have completed, and still close and reopen your notebook as needed.
+
+### Example Usage:
+
+```python
+# from examples/computer_vision_caching.py
+
+import ptmlib.model_tools as modt
+
+...
+
+model_file_name = "computer_vision_1"
+
+...
+
+fit_model_function_with_callback = lambda my_model, x, y, validation_data, epochs: my_model.fit(
+    x, y, validation_data, epochs=epochs, callbacks=[early_callback], 
+    validation_split=hp_validation_split)
+
+# if this has previously been executed, we will load the trained/saved model 
+model, history = modt.load_or_fit_model(model, model_file_name, x=training_images, y=training_labels,
+    epochs=hp_epochs, fit_model_function=fit_model_function_with_callback, metrics=["accuracy"])
+
+model.evaluate(test_images, test_labels)
+```
+
+### Example Output:
+
+You will see output similar to the following if you re-run a previously saved notebook where `load_or_fit_model` was used.
+
+![Sample load_or_fit_model Screenshot](ptmlib/media/load_or_fit_model_screenshot.png)
+
+If you wish to retrain a model that has previously been saved, simply delete the model file and related images, which are stored as `h5` and `png` files respectively.
 
 ## Installation
 
