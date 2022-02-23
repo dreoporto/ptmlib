@@ -2,14 +2,12 @@
 
 ## Summary
 
-**PTMLib** is a set of utilities that I have used with Machine Learning frameworks such as Scikit-Learn and TensorFlow.  The purpose is to eliminate code that I kept repeating in multiple projects.  
+**PTMLib** is a set of utilities for use with Machine Learning frameworks such as Scikit-Learn and TensorFlow.
 
 - **ptmlib.time.Stopwatch** - measure the time it takes to complete a long-running task, with an audio alert for task completion
 - **ptmlib.cpu.CpuCount** - get info on CPUs available, with options to adjust/exclude based on a specific number/percentage.  Useful for setting `n_jobs` in Scikit-Learn tools that support multiple CPUs, such as `RandomForestClassifier`
-- **ptmlib.charts** - render separate line charts for TensorFlow accuracy and loss, with corresponding validation data if available
-- **ptmlib.model_tools.load_or_fit_model()** - save and reload Tensorflow models and training graphs automatically, making it easier to pick up where you left off
-
-*This code and documentation were created by Andre Oporto at [Pendragon AI](https://www.pendragonai.com)*
+- **ptmlib.charts** - render separate line charts for TensorFlow metrics such as accuracy and loss, with corresponding validation data if available
+- **ptmlib.model_tools.load_or_fit_model()** - train, save, and reload Tensorflow models and metric charts automatically, making it easier to pick up where you left off
 
 ## ptmlib.time.Stopwatch
 
@@ -138,7 +136,7 @@ The default file name format for these images is *searchstring-timestamp.png*.  
 
 ## ptmlib.model_tools.load_or_fit_model()
 
-The `ptmlib.model_tools.load_or_fit_model()` function makes it easy to train and save a model for later use, in cases where you may need to stop and restart work in Jupyter or your IDE.  This can be very helpful when working through a long and detailed notebook, where some models take significant time to train.  You can avoid repeatedly training models you are satisfied with and have completed, and still close and reopen your notebook as needed.
+The `ptmlib.model_tools.load_or_fit_model()` function makes it easy to train and save a model for later use, in cases where you may need to stop and restart work in Jupyter or your IDE *after* model training has completed.  This can be very helpful when working through a long and detailed notebook with multiple example models, where some models take significant time to train.  You can avoid repeatedly training models you are satisfied with and have completed, and still close and reopen your notebook as needed.
 
 ### Example Usage:
 
@@ -170,7 +168,7 @@ You will see output similar to the following if you re-run a previously saved no
 
 ![Sample load_or_fit_model Screenshot](ptmlib/media/load_or_fit_model_screenshot.png)
 
-If you wish to retrain a model that has previously been saved, simply delete to saved model and related images, which are stored as `h5` and `png` files respectively.
+If you wish to retrain a model that has previously been saved, simply delete the model file and related images, which are stored as `h5` and `png` files respectively.
 
 ## Installation
 
