@@ -7,7 +7,7 @@
 - **ptmlib.time.Stopwatch** - measure the time it takes to complete a long-running task, with an audio alert for task completion
 - **ptmlib.cpu.CpuCount** - get info on CPUs available, with options to adjust/exclude based on a specific number/percentage.  Useful for setting `n_jobs` in Scikit-Learn tools that support multiple CPUs, such as `RandomForestClassifier`
 - **ptmlib.charts** - render separate line charts for TensorFlow metrics such as accuracy and loss, with corresponding validation data if available
-- **ptmlib.model_tools.load_or_fit_model()** - train, save, and reload Tensorflow models and metric charts automatically, making it easier to pick up where you left off
+- **ptmlib.model_tools.load_or_fit_model()** - train, save, and reload TensorFlow models and metric charts automatically, making it easier to pick up where you left off
 
 ## ptmlib.time.Stopwatch
 
@@ -136,7 +136,7 @@ The default file name format for these images is *searchstring-timestamp.png*.  
 
 ## ptmlib.model_tools.load_or_fit_model()
 
-The `ptmlib.model_tools.load_or_fit_model()` function makes it easy to train and save a model for later use, in cases where you may need to stop and restart work in Jupyter or your IDE *after* model training has completed.  This can be very helpful when working through a long and detailed notebook with multiple example models, where some models take significant time to train.  You can avoid repeatedly training models you are satisfied with and have completed, and still close and reopen your notebook as needed.
+The `ptmlib.model_tools.load_or_fit_model()` function makes it easy to train and save a TensorFlow model for later use, in cases where you may need to stop and restart work in Jupyter or your IDE *after* model training has completed.  This can be very helpful when working through a long and detailed notebook with multiple example models, where some models take significant time to train.  You can avoid repeatedly training models you are satisfied with and have completed, and still close and reopen your notebook as needed.
 
 ### Example Usage:
 
