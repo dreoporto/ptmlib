@@ -172,7 +172,7 @@ If you wish to retrain a model that has previously been saved, simply delete the
 
 ## `fit_model_function` and `load_model_function`
 
-Both `fit_model_function` and `load_model_function` have default functions that are specified for their respective parameters.  They can be customized to allow you more flexibility with your models.  An example of a custom `fit_model_function` is in the example above.  You can also customize the `load_model_function` as in the following example:
+Both `fit_model_function` and `load_model_function` are optional parameters that have default functions specified.  They can be set to custom functions to allow you more flexibility with your models.  A custom `fit_model_function` is in the example above.  You can also customize the `load_model_function` as in the following example:
 
 ```python
 import tensorflow_hub as hub
@@ -193,7 +193,7 @@ model, history = modt.load_or_fit_model(model, model_file_name, x=train_set, y=t
     epochs=hp_epochs, load_model_function=load_model_function_keras_layer, metrics=["accuracy"])
 ```
 
-A detailed example of the `load_or_fit_model()` function is available in the [Computer Vision with Model Caching]('ptmlib/notebooks/Computer-Vision-with-Model-Caching.ipynb') notebook.
+A detailed example of the `load_or_fit_model()` function is available in the [Computer Vision with Model Caching](ptmlib/notebooks/Computer-Vision-with-Model-Caching.ipynb) notebook.
 
 ## Installation
 
