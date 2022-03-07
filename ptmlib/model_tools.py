@@ -9,7 +9,7 @@ import ptmlib.charts as pch
 from ptmlib.time import Stopwatch
 
 
-def default_load_model_function(model_file_name: str):
+def _default_load_model_function(model_file_name: str):
     return keras.models.load_model(f'{model_file_name}.h5')
 
 
@@ -19,7 +19,7 @@ def _default_fit_model_function(model: Any, x: Any, y: Any = None, validation_da
 
 def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, validation_data: Any = None,
                       epochs: int = 1, metrics: List[str] = None, images_enabled=True, fig_size: (int, int) = (10, 6),
-                      load_model_function=default_load_model_function,
+                      load_model_function=_default_load_model_function,
                       fit_model_function=_default_fit_model_function):
     history = None
 

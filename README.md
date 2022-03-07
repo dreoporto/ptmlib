@@ -170,6 +170,31 @@ You will see output similar to the following if you re-run a previously saved no
 
 If you wish to retrain a model that has previously been saved, simply delete the model file and related images, which are stored as `h5` and `png` files respectively.
 
+### `fit_model_function` and `load_model_function`
+
+Both `fit_model_function` and `load_model_function` are optional parameters that have default functions specified.  They can be set to custom functions to allow you more flexibility with your models.  A custom `fit_model_function` is in the example above.  You can also customize the `load_model_function` as in the following example:
+
+```python
+import tensorflow_hub as hub
+
+model = keras.Sequential([
+    hub.KerasLayer("https://tfhub.dev/google/tf2-preview/nnlm-en-dim50/1",
+                  dtype=tf.string, input_shape=[], output_shape=[50]),
+    keras.layers.Dense(128, activation="relu"),
+    keras.layers.Dense(1, activation="sigmoid")
+])
+
+...
+# must specify custom_objects to save model file
+load_model_function_keras_layer = lambda model_file_name : keras.models.load_model(
+    f'{model_file_name}.h5', custom_objects={'KerasLayer':hub.KerasLayer })
+
+model, history = modt.load_or_fit_model(model, model_file_name, x=train_set, y=test_set, 
+    epochs=hp_epochs, load_model_function=load_model_function_keras_layer, metrics=["accuracy"])
+```
+
+A detailed example of the `load_or_fit_model()` function is available in the [Computer Vision with Model Caching](ptmlib/notebooks/Computer-Vision-with-Model-Caching.ipynb) notebook.
+
 ## Installation
 
 To install `ptmlib` in a virtualenv or conda environment:
