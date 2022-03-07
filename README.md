@@ -170,7 +170,7 @@ You will see output similar to the following if you re-run a previously saved no
 
 If you wish to retrain a model that has previously been saved, simply delete the model file and related images, which are stored as `h5` and `png` files respectively.
 
-## `fit_model_function` and `load_model_function`
+### `fit_model_function` and `load_model_function`
 
 Both `fit_model_function` and `load_model_function` are optional parameters that have default functions specified.  They can be set to custom functions to allow you more flexibility with your models.  A custom `fit_model_function` is in the example above.  You can also customize the `load_model_function` as in the following example:
 
