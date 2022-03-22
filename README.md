@@ -18,6 +18,10 @@ When `stop()` is called, an audio prompt will alert you that the task has comple
 ### Example:
 
 ```python
+from ptmlib.time import Stopwatch
+
+...
+
 stopwatch = Stopwatch()
 
 ...
@@ -73,6 +77,10 @@ In many cases (ex: a developer desktop), you will not want to use *all* your ava
 ### Example:
 
 ```python
+from ptmlib.cpu import CpuCount
+
+...
+
 cpu_count = CpuCount()
 cpu_count.print_stats()
 
