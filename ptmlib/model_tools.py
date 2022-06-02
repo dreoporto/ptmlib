@@ -9,8 +9,18 @@ import ptmlib.charts as pch
 from ptmlib.time import Stopwatch
 
 
-def _default_load_model_function(model_file_name: str):
-    return keras.models.load_model(f'{model_file_name}.h5')
+def _get_model_file_extension(model_file_format: str):
+    if model_file_format == "tf_saved_model":
+        # no extension means we are using TensorFlow SavedModel format
+        extension = ""
+    else:
+        extension = ".h5"
+    return extension
+
+
+def _default_load_model_function(model_file_name: str, model_file_format: str = ""):
+    extension = _get_model_file_extension(model_file_format)
+    return keras.models.load_model(f'{model_file_name}{extension}')
 
 
 def _default_fit_model_function(model: Any, x: Any, y: Any = None, validation_data: Any = None, epochs: int = 1):
@@ -19,13 +29,16 @@ def _default_fit_model_function(model: Any, x: Any, y: Any = None, validation_da
 
 def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, validation_data: Any = None,
                       epochs: int = 1, metrics: List[str] = None, images_enabled=True, fig_size: (int, int) = (10, 6),
+                      model_file_format: str = "",
                       load_model_function=_default_load_model_function,
                       fit_model_function=_default_fit_model_function):
     history = None
 
-    if os.path.exists(f'{model_file_name}.h5'):
-        print(f'Loading existing model file: {model_file_name}.h5')
-        model = load_model_function(model_file_name)
+    file_extension = _get_model_file_extension(model_file_format)
+
+    if os.path.exists(f'{model_file_name}{file_extension}'):
+        print(f'Loading existing model file: {model_file_name}{file_extension}')
+        model = load_model_function(model_file_name, model_file_format)
         if images_enabled:
             _show_saved_images(metrics, model_file_name, fig_size)
     else:
@@ -33,8 +46,8 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
         stopwatch.start()
         history = fit_model_function(model, x, y, validation_data, epochs)
         stopwatch.stop()
-        print(f'Saving new model file: {model_file_name}.h5')
-        model.save(f'{model_file_name}.h5')
+        print(f'Saving new model file: {model_file_name}{file_extension}')
+        model.save(f'{model_file_name}{file_extension}')
         if images_enabled:
             _show_new_images(history, model_file_name, metrics)
 
