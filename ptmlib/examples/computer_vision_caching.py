@@ -74,7 +74,6 @@ def main():
     hp_target = 0.91
     hp_validation_split = 0.2
     model_file_name = "computer_vision_1"
-    model_file_format = "tf_saved_model"
 
     print_diagnostics()
 
@@ -92,7 +91,7 @@ def main():
         modt.get_file_path(file_name, file_format), custom_objects=None)
 
     model, history = modt.load_or_fit_model(model, model_file_name, x=training_images, y=training_labels,
-                                            epochs=hp_epochs, model_file_format=model_file_format,
+                                            epochs=hp_epochs, model_file_format="tf_saved_model",
                                             metrics=["accuracy"],
                                             load_model_function=load_model_function_custom,
                                             fit_model_function=fit_model_function_with_callback)

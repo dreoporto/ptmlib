@@ -176,7 +176,22 @@ You will see output similar to the following if you re-run a previously saved no
 
 ![Sample load_or_fit_model Screenshot](ptmlib/media/load_or_fit_model_screenshot.png)
 
-If you wish to retrain a model that has previously been saved, simply delete the model file and related images, which are stored as `h5` and `png` files respectively.
+If you wish to retrain a model that has previously been saved, simply delete the model file and related images, which are stored as `h5` and `png` files respectively. (HDF5 is the default file format.)
+
+### TensorFlow *SavedModel* format
+
+The SavedModel format can be selected by setting the optional `model_file_format` parameter to `tf_saved_model`:
+
+```python
+    model, history = modt.load_or_fit_model(model, model_file_name, 
+        x=training_images, y=training_labels,
+        epochs=hp_epochs, model_file_format="tf_saved_model",
+        metrics=["accuracy"],
+        load_model_function=load_model_function_custom,
+        fit_model_function=fit_model_function_with_callback)
+```                          
+
+See [examples/computer_vision_caching.py](ptmlib/examples/computer_vision_caching.py) for an example.
 
 ### `fit_model_function` and `load_model_function`
 
