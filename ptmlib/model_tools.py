@@ -9,6 +9,11 @@ import ptmlib.charts as pch
 from ptmlib.time import Stopwatch
 
 
+def get_file_path(model_file_name: str, model_file_format: str = ""):
+    extension = _get_model_file_extension(model_file_format)
+    return f'{model_file_name}{extension}'
+
+
 def _get_model_file_extension(model_file_format: str):
     if model_file_format == "tf_saved_model":
         # no extension means we are using TensorFlow SavedModel format
@@ -19,8 +24,7 @@ def _get_model_file_extension(model_file_format: str):
 
 
 def _default_load_model_function(model_file_name: str, model_file_format: str = ""):
-    extension = _get_model_file_extension(model_file_format)
-    return keras.models.load_model(f'{model_file_name}{extension}')
+    return keras.models.load_model(get_file_path(model_file_name, model_file_format))
 
 
 def _default_fit_model_function(model: Any, x: Any, y: Any = None, validation_data: Any = None, epochs: int = 1):

@@ -194,8 +194,8 @@ model = keras.Sequential([
 
 ...
 # must specify custom_objects to save model file
-load_model_function_keras_layer = lambda model_file_name : keras.models.load_model(
-    f'{model_file_name}.h5', custom_objects={'KerasLayer':hub.KerasLayer })
+load_model_function_keras_layer = lambda file_name, file_format: keras.models.load_model(
+        modt.get_file_path(file_name, file_format), custom_objects={'KerasLayer':hub.KerasLayer })
 
 model, history = modt.load_or_fit_model(model, model_file_name, x=train_set, y=test_set, 
     epochs=hp_epochs, load_model_function=load_model_function_keras_layer, metrics=["accuracy"])

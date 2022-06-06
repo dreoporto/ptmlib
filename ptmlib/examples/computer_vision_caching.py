@@ -87,9 +87,15 @@ def main():
     fit_model_function_with_callback = lambda my_model, x, y, validation_data, epochs: my_model.fit(
         x, y, validation_data, epochs=epochs, callbacks=[early_callback], validation_split=hp_validation_split)
 
+    # testing only; a real implementation would specify custom_objects (see README for example)
+    load_model_function_custom = lambda file_name, file_format: keras.models.load_model(
+        modt.get_file_path(file_name, file_format), custom_objects=None)
+
     model, history = modt.load_or_fit_model(model, model_file_name, x=training_images, y=training_labels,
-                                            epochs=hp_epochs, fit_model_function=fit_model_function_with_callback,
-                                            metrics=["accuracy"], model_file_format=model_file_format)
+                                            epochs=hp_epochs, model_file_format=model_file_format,
+                                            metrics=["accuracy"],
+                                            load_model_function=load_model_function_custom,
+                                            fit_model_function=fit_model_function_with_callback)
 
     model.evaluate(test_images, test_labels)
 
