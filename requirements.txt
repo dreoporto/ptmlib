@@ -4,4 +4,4 @@ pandas~=1.5.3
 scikit-learn~=1.2.1
 playsound~=1.2.2
 tensorflow~=2.10.1
-jupyterlab~=3.5.3
+jupyterlab~=3.6.3
