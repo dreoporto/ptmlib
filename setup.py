@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setuptools.setup(
     name="ptmlib",
-    version="0.1.8",
+    version="0.1.9",
     author="Andre Oporto",
     author_email="opor7ae@pendragonai.com",
     description="Pendragon Tools for Machine Learning",
@@ -18,6 +18,6 @@ setuptools.setup(
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
-    python_requires='>=3.6',
+    python_requires='>=3.8',
     include_package_data=True
 )
