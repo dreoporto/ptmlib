@@ -43,6 +43,9 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
     if os.path.exists(f'{model_file_name}{file_extension}'):
         print(f'Loading existing model file: {model_file_name}{file_extension}')
         model = load_model_function(model_file_name, model_file_format)
+        if os.path.exists(f'{model_file_name}_history.pkl'):
+            with open(f'{model_file_name}_history.pkl', 'rb') as history_file:
+                history = pickle.load(history_file)
         if images_enabled:
             _show_saved_images(metrics, model_file_name, fig_size)
     else:
@@ -52,6 +55,8 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
         stopwatch.stop()
         print(f'Saving new model file: {model_file_name}{file_extension}')
         model.save(f'{model_file_name}{file_extension}')
+        with open(f'{model_file_name}_history.pkl', 'wb') as history_file:
+            pickle.dump(history.history, history_file)
         if images_enabled:
             _show_new_images(history, model_file_name, metrics)
 
