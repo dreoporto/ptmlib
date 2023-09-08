@@ -45,8 +45,13 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
         print(f'Loading existing model file: {model_file_name}{file_extension}')
         model = load_model_function(model_file_name, model_file_format)
         if os.path.exists(f'{model_file_name}_history.pkl'):
+            history = keras.callbacks.History()  # create new history object for return value
             with open(f'{model_file_name}_history.pkl', 'rb') as history_file:
-                history = pickle.load(history_file)
+                # load from previously saved history_params_tuple
+                h, p = pickle.load(history_file)
+                history.history = h
+                history.params = p
+        print('TODO AEO TEMP 5')  # TODO AEO TEMP
         if images_enabled:
             _show_saved_images(metrics, model_file_name, fig_size)
     else:
@@ -57,7 +62,8 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
         print(f'Saving new model file: {model_file_name}{file_extension}')
         model.save(f'{model_file_name}{file_extension}')
         with open(f'{model_file_name}_history.pkl', 'wb') as history_file:
-            pickle.dump(history.history, history_file)
+            history_params_tuple = (history.history, history.params)
+            pickle.dump(history_params_tuple, history_file)
         if images_enabled:
             _show_new_images(history, model_file_name, metrics)
 

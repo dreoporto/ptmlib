@@ -70,7 +70,7 @@ def get_model() -> keras.models.Sequential:
 def main():
 
     # HYPER PARAMS, CONSTANTS, ETC
-    hp_epochs = 50
+    hp_epochs = 5  # TODO AEO TEMP
     hp_target = 0.91
     hp_validation_split = 0.2
     model_file_name = "computer_vision_1"
@@ -102,6 +102,11 @@ def main():
     print(classifications[0])
     print(test_labels[0])
     print(max(classifications[0]))
+
+    print('type(model)', type(model))  # TODO AEO TEMP
+    print('type(history)', type(history))
+    print('history.history', history.history)
+    print('history.params', history.params)
 
 
 if __name__ == '__main__':
