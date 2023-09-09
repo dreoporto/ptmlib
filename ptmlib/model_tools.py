@@ -9,6 +9,8 @@ from tensorflow import keras
 import ptmlib.charts as pch
 from ptmlib.time import Stopwatch
 
+HISTORY_FILE_SUFFIX_EXTENSION = '_history.pkl'
+
 
 def get_file_path(model_file_name: str, model_file_format: str = ""):
     extension = _get_model_file_extension(model_file_format)
@@ -37,21 +39,12 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
                       model_file_format: str = "",
                       load_model_function=_default_load_model_function,
                       fit_model_function=_default_fit_model_function):
-    history = None
-
     file_extension = _get_model_file_extension(model_file_format)
 
     if os.path.exists(f'{model_file_name}{file_extension}'):
         print(f'Loading existing model file: {model_file_name}{file_extension}')
         model = load_model_function(model_file_name, model_file_format)
-        if os.path.exists(f'{model_file_name}_history.pkl'):
-            history = keras.callbacks.History()  # create new history object for return value
-            with open(f'{model_file_name}_history.pkl', 'rb') as history_file:
-                # load from previously saved history_params_tuple
-                h, p = pickle.load(history_file)
-                history.history = h
-                history.params = p
-        print('TODO AEO TEMP 5')  # TODO AEO TEMP
+        history = load_history_data(model_file_name)
         if images_enabled:
             _show_saved_images(metrics, model_file_name, fig_size)
     else:
@@ -61,13 +54,33 @@ def load_or_fit_model(model: Any, model_file_name: str, x: Any, y: Any = None, v
         stopwatch.stop()
         print(f'Saving new model file: {model_file_name}{file_extension}')
         model.save(f'{model_file_name}{file_extension}')
-        with open(f'{model_file_name}_history.pkl', 'wb') as history_file:
-            history_params_tuple = (history.history, history.params)
-            pickle.dump(history_params_tuple, history_file)
+        save_history_data(history, model_file_name)
         if images_enabled:
             _show_new_images(history, model_file_name, metrics)
 
     return model, history
+
+
+def save_history_data(history: Any, model_file_name: str):
+    with open(f'{model_file_name}{HISTORY_FILE_SUFFIX_EXTENSION}', 'wb') as history_file:
+        history_params_tuple = (history.history, history.params)
+        pickle.dump(history_params_tuple, history_file)
+
+
+def load_history_data(model_file_name: str):
+    if not os.path.exists(f'{model_file_name}{HISTORY_FILE_SUFFIX_EXTENSION}'):
+        return None
+
+    # create new history object for return value
+    history = keras.callbacks.History()
+
+    with open(f'{model_file_name}{HISTORY_FILE_SUFFIX_EXTENSION}', 'rb') as history_file:
+        # load from previously saved history_params_tuple
+        h, p = pickle.load(history_file)
+        history.history = h
+        history.params = p
+
+    return history
 
 
 def _show_new_images(history: Any, model_file_name: str, metrics: List[str]):

@@ -9,7 +9,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 import ptmlib.model_tools as modt
-
+import ptmlib.charts as pch
 
 class MyCallback(keras.callbacks.Callback):
 
@@ -70,7 +70,7 @@ def get_model() -> keras.models.Sequential:
 def main():
 
     # HYPER PARAMS, CONSTANTS, ETC
-    hp_epochs = 5  # TODO AEO TEMP
+    hp_epochs = 50
     hp_target = 0.91
     hp_validation_split = 0.2
     model_file_name = "computer_vision_1"
@@ -103,10 +103,12 @@ def main():
     print(test_labels[0])
     print(max(classifications[0]))
 
-    print('type(model)', type(model))  # TODO AEO TEMP
-    print('type(history)', type(history))
-    print('history.history', history.history)
-    print('history.params', history.params)
+    # ensure history data is still available, even if cached
+    pch.show_history_chart(history, "accuracy")  # render again to be sure we have proper history data
+    print('type(model):', type(model))
+    print('type(history):', type(history))
+    print('history.history:', history.history)
+    print('history.params:', history.params)
 
 
 if __name__ == '__main__':
