@@ -9,7 +9,7 @@ from tensorflow import keras
 from tensorflow.keras import layers
 
 import ptmlib.model_tools as modt
-
+import ptmlib.charts as pch
 
 class MyCallback(keras.callbacks.Callback):
 
@@ -102,6 +102,13 @@ def main():
     print(classifications[0])
     print(test_labels[0])
     print(max(classifications[0]))
+
+    # ensure history data is still available, even if cached
+    pch.show_history_chart(history, "accuracy")  # render again to be sure we have proper history data
+    print('type(model):', type(model))
+    print('type(history):', type(history))
+    print('history.history:', history.history)
+    print('history.params:', history.params)
 
 
 if __name__ == '__main__':
