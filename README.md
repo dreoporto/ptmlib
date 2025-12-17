@@ -231,7 +231,7 @@ To install the `ptmlib` source code on your local machine:
 git clone https://github.com/dreoporto/ptmlib.git
 cd ptmlib
 
-conda create -n ptmlib-dev python=3.8
+conda create -n ptmlib-dev python=3.10
 conda activate ptmlib-dev
 pip install -r requirements.txt
 ```
