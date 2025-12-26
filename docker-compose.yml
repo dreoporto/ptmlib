@@ -1,0 +1,24 @@
+name: pendragon-ai-ptmlib
+services:
+  tensorflow-jupyter-gpu:
+    container_name: tensorflow-jupyter-gpu-ptmlib
+    build:
+      context: .
+      dockerfile: ./docker/Dockerfile
+    tty: true
+    volumes:
+      - ./ptmlib/:/app/ptmlib
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    ports:
+        - "$JUPYTER_PORT:$JUPYTER_PORT"
+        - "$TENSORBOARD_PORT:$TENSORBOARD_PORT"
+    env_file:
+     - ./.env
+    entrypoint: jupyter lab --ip 0.0.0.0 --port=$JUPYTER_PORT --no-browser --allow-root
+    
