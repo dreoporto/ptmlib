@@ -1,7 +1,6 @@
-name: pendragon-ai-ptmlib
+name: ptmlib
 services:
-  tensorflow-jupyter-gpu:
-    container_name: tensorflow-jupyter-gpu-ptmlib
+  tensorflow-gpu:
     build:
       context: .
       dockerfile: ./docker/Dockerfile
